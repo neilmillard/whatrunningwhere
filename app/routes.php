@@ -22,8 +22,4 @@ return function (App $app) {
     $app->get('/deployments', DeploymentController::class . ':displayDeployments');
     $app->post('/deployments', DeploymentController::class . ':createDeployment');
     $app->get('/deployments/new', DeploymentController::class . ':displayDeploymentForm');
-    $app->group('/users', function (Group $group) {
-        $group->get('', ListUsersAction::class);
-        $group->get('/{id}', ViewUserAction::class);
-    });
 };

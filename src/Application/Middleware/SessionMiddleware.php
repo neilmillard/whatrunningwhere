@@ -20,6 +20,7 @@ class SessionMiddleware implements Middleware
             session_start();
             $request = $request->withAttribute('session', $_SESSION);
         }
+
         // anonymous is allowed
         session_start();
         $request = $request->withAttribute('session', $_SESSION);
