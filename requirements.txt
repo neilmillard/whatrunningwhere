@@ -1,0 +1,10 @@
+
+Here, we have specified that the project requires PHP version 7.4 or higher, as well as the Slim framework and PSR-7 implementation for handling HTTP requests and responses.
+
+To install the dependencies specified in the composer.json file, you would need to follow these steps:
+
+1. Make sure you have Composer installed on your system. If not, you can download Composer from the official website (https://getcomposer.org/).
+
+2. Open a terminal or command prompt and navigate to the project directory.
+
+3. Run the following command to install the dependencies:
