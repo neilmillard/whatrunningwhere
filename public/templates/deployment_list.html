@@ -1,0 +1,17 @@
+<h2>Current Deployed Versions</h2>
+<table>
+    <tr>
+        <th>Time</th>
+        <th>Application</th>
+        <th>Version</th>
+        <th>Environment</th>
+    </tr>
+    {% for deployment in deployments %}
+    <tr>
+        <td>{{ deployment.time }}</td>
+        <td>{{ deployment.application }}</td>
+        <td>{{ deployment.version }}</td>
+        <td>{{ deployment.environment }}</td>
+    </tr>
+    {% endfor %}
+</table>
