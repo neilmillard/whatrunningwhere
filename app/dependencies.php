@@ -27,22 +27,23 @@ return function (ContainerBuilder $containerBuilder) {
             return $logger;
         },
         PDO::class => function (ContainerInterface $c) {
-            $settings = $c->get('settings');
-            switch ($settings['db']['driver']) :
+            $settings = $c->get(SettingsInterface::class);
+            $sdb = $settings->get('db');
+            switch ($sdb['driver']) :
                 case 'sqlite':
                     $db = [
-                        'dbname' => $settings['db']['name'],
-                        'dbpath' => $settings['db']['path'],
+                        'dbname' => $sdb['dbname'],
+                        'dbpath' => $sdb['dbpath'],
                     ];
 
                     $connection = new PDO("sqlite:" . $db['dbpath'] . $db['dbname']);
                     break;
                 case 'mysql':
                     $db = [
-                        'dbname' => $settings['db']['name'],
-                        'user' => $settings['db']['username'],
-                        'pass' => $settings['db']['password'],
-                        'host' => $settings['db']['host']
+                        'dbname' => $sdb['dbname'],
+                        'user' => $sdb['username'],
+                        'pass' => $sdb['password'],
+                        'host' => $sdb['host']
                     ];
                     $connection = new PDO("mysql:host=" . $db['host'] .
                         ";port=3306;dbname=" . $db['dbname'], $db['user'], $db['pass']);

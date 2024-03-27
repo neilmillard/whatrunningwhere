@@ -23,8 +23,8 @@ return function (ContainerBuilder $containerBuilder) {
                 ],
                 'db' => [
                     'driver' => 'sqlite',
-                    'dbname' => 'db.sqlite3',
-                    'dbpath' => '/',
+                    'dbname' => 'db.sqlite',
+                    'dbpath' => __DIR__ . '/../',
                 ],
             ]);
         }

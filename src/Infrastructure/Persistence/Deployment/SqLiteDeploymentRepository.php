@@ -8,7 +8,7 @@ use PDO;
 
 class SqLiteDeploymentRepository implements DeploymentRepository
 {
-    private $connection;
+    private PDO $connection;
 
     public function __construct(PDO $connection)
     {
@@ -16,20 +16,51 @@ class SqLiteDeploymentRepository implements DeploymentRepository
     }
     public function findAll(): array
     {
-        // TODO: Implement findAll() method.
-        return [];
+        $query = $this->connection->prepare("SELECT * FROM deployments");
+        $query->execute();
+        return $query->fetchall();
     }
 
     public function findDeploymentOfId(int $id): Deployment
     {
-        // TODO: Implement findDeploymentOfId() method.
-
-        //return $user;
+        $query = $this->connection->prepare("SELECT * FROM deployments WHERE id=?", [$id]);
+        $query->execute();
+        $result = $query->fetchObject('App\Domain\Deployment\Deployment');
+        return $result[0];
     }
 
-    public function findDeploymentwithApplication(string $application): array
+    public function findDeploymentWithApplication(string $application): array
     {
-        // TODO: Implement findDeploymentwithApplication() method.
-        return [];
+        $query = $this->connection->prepare("SELECT * FROM deployments WHERE application=?", $application);
+        $query->execute();
+        return $query->fetchAll();
+    }
+
+    public function createDeployment(
+        string $application,
+        string $version,
+        string $who,
+        string $time,
+        string $environment
+    ): Deployment {
+        $sql = "INSERT INTO deployments (application, version, who, time, environment) VALUES (?,?,?,?,?)";
+        $query = $this->connection->prepare($sql);
+        $query->execute([$application, $version, $who, $time, $environment]);
+        $id = $this->connection->lastInsertId();
+        return $this->findDeploymentOfId($id);
+    }
+
+    public function save(Deployment $deployment): Deployment
+    {
+        $sql = "INSERT INTO deployments (application, version, who, time, environment) VALUES (?,?,?,?,?)";
+        $query = $this->connection->prepare($sql);
+        $query->execute([
+            $deployment->getApplication(),
+            $deployment->getVersion(),
+            $deployment->getWho(),
+            $deployment->getTime(),
+            $deployment->getEnvironment()]);
+        $id = $this->connection->lastInsertId();
+        return $this->findDeploymentOfId($id);
     }
 }

@@ -18,14 +18,20 @@ class Deployment implements JsonSerializable
 
     private int $time;
 
-    public function __construct(?int $id, string $who, string $application, string $version, string $environment)
-    {
+    public function __construct(
+        int $time,
+        string $who,
+        string $application,
+        string $version,
+        string $environment,
+        ?int $id
+    ) {
         $this->id = $id;
         $this->who = strtolower($who);
         $this->application = strtolower($application);
         $this->version = $version;
         $this->environment = strtolower($environment);
-        $this->time = date("Y-m-d H:i:s");
+        $this->time = $time;
     }
 
     public function getId(): ?int

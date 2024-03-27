@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Application\Actions\Deployment\CreateDeploymentAction;
+use App\Application\Actions\Deployment\ListDeploymentsAction;
 use App\Application\Actions\User\ListUsersAction;
 use App\Application\Actions\User\ViewUserAction;
 use App\Application\Controllers\DeploymentController;
@@ -19,8 +21,8 @@ return function (App $app) {
 
     $app->get('/', HomeController::class . ':home');
 
-    $app->get('/deployments', DeploymentController::class . ':displayDeployments');
-    $app->post('/deployments', DeploymentController::class . ':createDeployment');
+    $app->get('/deployments', ListDeploymentsAction::class);
+    $app->post('/deployments', CreateDeploymentAction::class);
     $app->get('/deployments/new', DeploymentController::class . ':displayDeploymentForm');
 
     $app->group('/users', function (Group $group) {
