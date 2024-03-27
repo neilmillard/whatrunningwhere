@@ -21,6 +21,11 @@ return function (ContainerBuilder $containerBuilder) {
                     'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
                     'level' => Logger::DEBUG,
                 ],
+                'db' => [
+                    'driver' => 'sqlite',
+                    'dbname' => 'db.sqlite3',
+                    'dbpath' => '/',
+                ],
             ]);
         }
     ]);

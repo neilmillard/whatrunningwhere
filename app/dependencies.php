@@ -26,5 +26,30 @@ return function (ContainerBuilder $containerBuilder) {
 
             return $logger;
         },
+        PDO::class => function (ContainerInterface $c) {
+            $settings = $c->get('settings');
+            switch ($settings['db']['driver']) :
+                case 'sqlite':
+                    $db = [
+                        'dbname' => $settings['db']['name'],
+                        'dbpath' => $settings['db']['path'],
+                    ];
+
+                    $connection = new PDO("sqlite:" . $db['dbpath'] . $db['dbname']);
+                    break;
+                case 'mysql':
+                    $db = [
+                        'dbname' => $settings['db']['name'],
+                        'user' => $settings['db']['username'],
+                        'pass' => $settings['db']['password'],
+                        'host' => $settings['db']['host']
+                    ];
+                    $connection = new PDO("mysql:host=" . $db['host'] .
+                        ";port=3306;dbname=" . $db['dbname'], $db['user'], $db['pass']);
+                    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    $connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            endswitch;
+            return $connection;
+        },
     ]);
 };
