@@ -50,6 +50,7 @@ return function (ContainerBuilder $containerBuilder) {
                     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     $connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             endswitch;
+            // $connection->exec('CREATE TABLE IF NOT EXISTS deployments (id int, application text, version text, who text, time int, environment text)');
             return $connection;
         },
     ]);

@@ -22,7 +22,7 @@
     }
   ],
   "require": {
-    "php": "^8.0",
+    "php": "^8.1",
     "ext-json": "*",
     "monolog/monolog": "^2.8",
     "php-di/php-di": "^6.4",
@@ -37,6 +37,7 @@
     "phpstan/extension-installer": "^1.2.0",
     "phpstan/phpstan": "^1.8",
     "phpunit/phpunit": "^9.5.26",
+    "phpunit/php-code-coverage": "^9.2.31",
     "squizlabs/php_codesniffer": "^3.7"
   },
   "config": {

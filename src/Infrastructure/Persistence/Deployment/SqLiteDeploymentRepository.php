@@ -15,6 +15,25 @@ class SqLiteDeploymentRepository implements DeploymentRepository
         $this->connection = $connection;
     }
 
+    public function create(Deployment $deployment): Deployment
+    {
+        $data = [
+            'application' => $deployment->getApplication(),
+            'version' => $deployment->getVersion(),
+            'who' => $deployment->getWho(),
+            'time' => $deployment->getTime(),
+            'environment' => $deployment->getEnvironment()
+        ];
+        $sql = "INSERT INTO deployments (application, version, who, time, environment) "
+            . "VALUES (:application, :version, :who, :time, :environment)";
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        if ($query->rowCount() == 1) {
+            $deployment->setId($this->connection->lastInsertId());
+        }
+        return $deployment;
+    }
+
     public function findAll(): array
     {
         $deployments = [];
@@ -64,24 +83,5 @@ class SqLiteDeploymentRepository implements DeploymentRepository
         $query = $this->connection->prepare("SELECT * FROM deployments WHERE application=?", $application);
         $query->execute();
         return $query->fetchAll();
-    }
-
-    public function create(Deployment $deployment): Deployment
-    {
-        $data = [
-            'application' => $deployment->getApplication(),
-            'version' => $deployment->getVersion(),
-            'who' => $deployment->getWho(),
-            'time' => $deployment->getTime(),
-            'environment' => $deployment->getEnvironment()
-        ];
-        $sql = "INSERT INTO deployments (application, version, who, time, environment) "
-            . "VALUES (:application, :version, :who, :time, :environment)";
-        $query = $this->connection->prepare($sql);
-        $query->execute($data);
-        if ($query->rowCount() > 0) {
-            $deployment->setId($this->connection->lastInsertId());
-        }
-        return $deployment;
     }
 }

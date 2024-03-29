@@ -5,7 +5,7 @@ namespace App\Application\Actions\Deployment;
 use App\Application\Actions\Deployment\DeploymentAction;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class ListDeploymentsAction extends DeploymentAction
+class ListDeploymentAction extends DeploymentAction
 {
     /**
      * @inheritDoc
