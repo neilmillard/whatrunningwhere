@@ -31,11 +31,11 @@ class CreateDeploymentAction extends DeploymentAction
             $environment,
             null,
         );
-        $this->logger->info("Deployment was created.");
-        $deployment = $this->deploymentRepository->save($myDeployment);
+        $this->logger->info("Deployment was created. `${myDeployment}`");
+        $deployment = $this->deploymentRepository->create($myDeployment);
         $deploymentId = $deployment->getId();
         $this->logger->info("Deployment of id `${deploymentId}` was saved.");
 
-        return $this->respondWithData($deployment);
+        return $this->respondWithData($deployment, 201);
     }
 }

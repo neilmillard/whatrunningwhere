@@ -39,6 +39,11 @@ class Deployment implements JsonSerializable
         return $this->id;
     }
 
+    public function setId(int $lastInsertId): void
+    {
+        $this->id = $lastInsertId;
+    }
+
     public function getWho(): string
     {
         return $this->who;
@@ -75,5 +80,9 @@ class Deployment implements JsonSerializable
             'environment' => $this->environment,
             'time' => $this->time,
         ];
+    }
+    public function __toString()
+    {
+        return json_encode($this->jsonSerialize());
     }
 }

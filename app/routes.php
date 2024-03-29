@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 use App\Application\Actions\Deployment\CreateDeploymentAction;
+use App\Application\Actions\Deployment\DisplayDeploymentFormAction;
 use App\Application\Actions\Deployment\ListDeploymentsAction;
+use App\Application\Actions\Home\HomeAction;
 use App\Application\Actions\User\ListUsersAction;
 use App\Application\Actions\User\ViewUserAction;
-use App\Application\Controllers\DeploymentController;
-use App\Application\Controllers\HomeController;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
@@ -19,11 +19,11 @@ return function (App $app) {
         return $response;
     });
 
-    $app->get('/', HomeController::class . ':home');
+    $app->get('/', HomeAction::class);
 
     $app->get('/deployments', ListDeploymentsAction::class);
     $app->post('/deployments', CreateDeploymentAction::class);
-    $app->get('/deployments/new', DeploymentController::class . ':displayDeploymentForm');
+    $app->get('/deployments/new', DisplayDeploymentFormAction::class);
 
     $app->group('/users', function (Group $group) {
         $group->get('', ListUsersAction::class);

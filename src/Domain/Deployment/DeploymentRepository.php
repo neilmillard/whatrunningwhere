@@ -11,26 +11,10 @@ interface DeploymentRepository
 
     /**
      * @param int $id
-     * @return Deployment
+     * @return Deployment|null
      * @throws DeploymentNotFoundException
      */
-    public function findDeploymentOfId(int $id): Deployment;
-
-    /**
-     * @param string $application
-     * @param string $version
-     * @param string $who
-     * @param string $time
-     * @param string $environment
-     * @return Deployment
-     */
-    public function createDeployment(
-        string $application,
-        string $version,
-        string $who,
-        string $time,
-        string $environment
-    ): Deployment;
+    public function findDeploymentOfId(int $id): ?Deployment;
 
     /**
      * @param string $application
@@ -42,5 +26,5 @@ interface DeploymentRepository
      * @param Deployment $deployment
      * @return Deployment
      */
-    public function save(Deployment $deployment): Deployment;
+    public function create(Deployment $deployment): Deployment;
 }

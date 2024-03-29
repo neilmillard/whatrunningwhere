@@ -14,19 +14,49 @@ class SqLiteDeploymentRepository implements DeploymentRepository
     {
         $this->connection = $connection;
     }
+
     public function findAll(): array
     {
+        $deployments = [];
         $query = $this->connection->prepare("SELECT * FROM deployments");
         $query->execute();
-        return $query->fetchall();
+        $data = $query->fetchall(PDO::FETCH_ASSOC);
+        foreach ($data as $n) {
+            $deployments[] = $this->getDeploymentResult($n);
+        }
+        return $deployments;
     }
 
-    public function findDeploymentOfId(int $id): Deployment
+    /**
+     * @param int $id
+     * @return Deployment|null
+     */
+    public function findDeploymentOfId(int $id): ?Deployment
     {
         $query = $this->connection->prepare("SELECT * FROM deployments WHERE id=?", [$id]);
         $query->execute();
-        $result = $query->fetchObject('App\Domain\Deployment\Deployment');
-        return $result[0];
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            return null;
+        }
+        return $this->getDeploymentResult($result);
+    }
+
+    /**
+     * @param array $result
+     * @return Deployment
+     */
+    public function getDeploymentResult(mixed $result): Deployment
+    {
+
+        return new Deployment(
+            $result['time'],
+            $result['who'],
+            $result['application'],
+            $result['version'],
+            $result['environment'],
+            $result['id']
+        );
     }
 
     public function findDeploymentWithApplication(string $application): array
@@ -36,31 +66,22 @@ class SqLiteDeploymentRepository implements DeploymentRepository
         return $query->fetchAll();
     }
 
-    public function createDeployment(
-        string $application,
-        string $version,
-        string $who,
-        string $time,
-        string $environment
-    ): Deployment {
-        $sql = "INSERT INTO deployments (application, version, who, time, environment) VALUES (?,?,?,?,?)";
-        $query = $this->connection->prepare($sql);
-        $query->execute([$application, $version, $who, $time, $environment]);
-        $id = $this->connection->lastInsertId();
-        return $this->findDeploymentOfId($id);
-    }
-
-    public function save(Deployment $deployment): Deployment
+    public function create(Deployment $deployment): Deployment
     {
-        $sql = "INSERT INTO deployments (application, version, who, time, environment) VALUES (?,?,?,?,?)";
+        $data = [
+            'application' => $deployment->getApplication(),
+            'version' => $deployment->getVersion(),
+            'who' => $deployment->getWho(),
+            'time' => $deployment->getTime(),
+            'environment' => $deployment->getEnvironment()
+        ];
+        $sql = "INSERT INTO deployments (application, version, who, time, environment) "
+            . "VALUES (:application, :version, :who, :time, :environment)";
         $query = $this->connection->prepare($sql);
-        $query->execute([
-            $deployment->getApplication(),
-            $deployment->getVersion(),
-            $deployment->getWho(),
-            $deployment->getTime(),
-            $deployment->getEnvironment()]);
-        $id = $this->connection->lastInsertId();
-        return $this->findDeploymentOfId($id);
+        $query->execute($data);
+        if ($query->rowCount() > 0) {
+            $deployment->setId($this->connection->lastInsertId());
+        }
+        return $deployment;
     }
 }
