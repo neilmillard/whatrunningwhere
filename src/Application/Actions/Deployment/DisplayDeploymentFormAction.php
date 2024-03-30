@@ -8,7 +8,6 @@ use Slim\Views\Twig;
 
 class DisplayDeploymentFormAction extends DeploymentAction
 {
-
     /**
      * @inheritDoc
      */
