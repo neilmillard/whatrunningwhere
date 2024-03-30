@@ -52,19 +52,19 @@ abstract class Action
     /**
      * @return array|object
      */
-    protected function getFormData()
+    protected function getFormData(): object|array
     {
         return $this->request->getParsedBody();
     }
 
     /**
+     * @param string $name
      * @return mixed
-     * @throws HttpBadRequestException
      */
-    protected function resolveArg(string $name)
+    protected function resolveArg(string $name): mixed
     {
         if (!isset($this->args[$name])) {
-            throw new HttpBadRequestException($this->request, "Could not resolve argument `{$name}`.");
+            throw new HttpBadRequestException($this->request, "Could not resolve argument `$name`.");
         }
 
         return $this->args[$name];
@@ -72,6 +72,7 @@ abstract class Action
 
     /**
      * @param array|object|null $data
+     * @noinspection PhpMissingParamTypeInspection
      */
     protected function respondWithData($data = null, int $statusCode = 200): Response
     {

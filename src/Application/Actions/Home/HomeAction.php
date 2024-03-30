@@ -14,6 +14,7 @@ class HomeAction extends Action
     protected function action(): Response
     {
         $view = Twig::fromRequest($this->request);
+        /** @noinspection PhpUnhandledExceptionInspection */
         return $view->render($this->response, 'hello.html', [
             'name' => 'Controller'
         ]);

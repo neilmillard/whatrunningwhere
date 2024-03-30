@@ -20,7 +20,7 @@ interface DeploymentRepository
      * @param string $application
      * @return Deployment[]
      */
-    public function findDeploymentwithApplication(string $application): array;
+    public function findDeploymentWithApplication(string $application): array;
 
     /**
      * @param Deployment $deployment

@@ -14,7 +14,7 @@ class ViewDeploymentAction extends DeploymentAction
         $deploymentId = (int)$this->resolveArg('id');
         $deployment = $this->deploymentRepository->findDeploymentOfId($deploymentId);
         $id = $deployment->getId();
-        $this->logger->info("Deployment of id `${id}` was viewed.");
+        $this->logger->info("Deployment of id `$id` was viewed.");
 
         return $this->respondWithData($deployment);
     }

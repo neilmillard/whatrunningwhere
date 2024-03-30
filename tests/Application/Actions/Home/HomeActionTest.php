@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Application\Actions\Deployment;
+namespace Tests\Application\Actions\Home;
 
 use DI\Container;
 use Tests\TestCase;
 
-class DisplayDeploymentFormActionTest extends TestCase
+class HomeActionTest extends TestCase
 {
     public function testAction()
     {
@@ -16,13 +16,12 @@ class DisplayDeploymentFormActionTest extends TestCase
         $container = $app->getContainer();
 
         //When
-        $request = $this->createRequest('GET', '/deployments/new');
+        $request = $this->createRequest('GET', '/');
         $response = $app->handle($request);
 
         $payload = (string)$response->getBody();
 
         //Then
-        $this->assertStringContainsString('form action="/deployments" method="post"', $payload);
-        $this->assertStringContainsString('submit', $payload);
+        $this->assertStringContainsString('Hello', $payload);
     }
 }

@@ -58,7 +58,7 @@ class SqLiteDeploymentRepository implements DeploymentRepository
         $query->execute(['id' => $id]);
         $result = $query->fetch(PDO::FETCH_ASSOC);
         if (!$result) {
-            throw new DeploymentNotFoundException("Deployment of {$id} not found");
+            throw new DeploymentNotFoundException("Deployment of $id not found");
         }
         return $this->getDeploymentResult($result);
     }
@@ -82,11 +82,20 @@ class SqLiteDeploymentRepository implements DeploymentRepository
 
     public function findDeploymentWithApplication(string $application): array
     {
-        $query = $this->connection->prepare("SELECT * FROM deployments WHERE application=?", $application);
-        $query->execute();
-        return $query->fetchAll();
+        $deployments = [];
+        $query = $this->connection
+            ->prepare("SELECT * FROM deployments WHERE application=:application ORDER BY time");
+        $query->execute(['application' => $application]);
+        $data = $query->fetchall(PDO::FETCH_ASSOC);
+        foreach ($data as $n) {
+            $deployments[] = $this->getDeploymentResult($n);
+        }
+        return $deployments;
     }
 
+    /**
+     * @return array
+     */
     public function findApplications(): array
     {
         $query = $this->connection

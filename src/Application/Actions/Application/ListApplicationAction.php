@@ -2,7 +2,6 @@
 
 namespace App\Application\Actions\Application;
 
-use App\Application\Actions\Application\ApplicationAction;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class ListApplicationAction extends ApplicationAction

@@ -19,9 +19,6 @@ use Throwable;
 
 class HttpErrorHandler extends SlimErrorHandler
 {
-    /**
-     * @inheritdoc
-     */
     protected function respond(): Response
     {
         $exception = $this->exception;

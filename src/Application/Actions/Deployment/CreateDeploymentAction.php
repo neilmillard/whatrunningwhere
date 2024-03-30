@@ -2,10 +2,8 @@
 
 namespace App\Application\Actions\Deployment;
 
-use App\Application\Actions\Deployment\DeploymentAction;
 use App\Domain\Deployment\Deployment;
 use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface;
 
 class CreateDeploymentAction extends DeploymentAction
 {
@@ -31,10 +29,10 @@ class CreateDeploymentAction extends DeploymentAction
             $environment,
             null,
         );
-        $this->logger->info("Deployment was created. `${myDeployment}`");
+        $this->logger->info("Deployment was created. `$myDeployment`");
         $deployment = $this->deploymentRepository->create($myDeployment);
         $deploymentId = $deployment->getId();
-        $this->logger->info("Deployment of id `${deploymentId}` was saved.");
+        $this->logger->info("Deployment of id `$deploymentId` was saved.");
 
         return $this->respondWithData($deployment, 201);
     }
