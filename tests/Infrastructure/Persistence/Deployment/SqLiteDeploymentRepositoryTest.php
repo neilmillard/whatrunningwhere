@@ -86,7 +86,7 @@ class SqLiteDeploymentRepositoryTest extends TestCase
 
         $pdoStatementProphecy = $this->prophesize(\PDOStatement::class);
         $pdoStatementProphecy
-            ->execute()
+            ->execute(['id' => 2])
             ->willReturn(true)
             ->shouldBeCalledOnce();
         $pdoStatementProphecy
@@ -98,7 +98,7 @@ class SqLiteDeploymentRepositoryTest extends TestCase
 
         $databaseProphecy = $this->prophesize(PDO::class);
         $databaseProphecy
-            ->prepare("SELECT * FROM deployments WHERE id=?", [2])
+            ->prepare("SELECT * FROM deployments WHERE id=:id")
             ->willReturn($pdoStatementObject)
             ->shouldBeCalledOnce();
 

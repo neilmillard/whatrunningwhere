@@ -2,7 +2,6 @@
 
 namespace App\Application\Actions\Deployment;
 
-use App\Application\Actions\Deployment\DeploymentAction;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class ViewDeploymentAction extends DeploymentAction
@@ -14,8 +13,8 @@ class ViewDeploymentAction extends DeploymentAction
     {
         $deploymentId = (int)$this->resolveArg('id');
         $deployment = $this->deploymentRepository->findDeploymentOfId($deploymentId);
-
-        $this->logger->info("Deployment of id `${deploymentId}` was viewed.");
+        $id = $deployment->getId();
+        $this->logger->info("Deployment of id `${id}` was viewed.");
 
         return $this->respondWithData($deployment);
     }

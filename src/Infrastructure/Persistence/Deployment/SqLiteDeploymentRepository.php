@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Persistence\Deployment;
 
 use App\Domain\Deployment\Deployment;
+use App\Domain\Deployment\DeploymentNotFoundException;
 use App\Domain\Deployment\DeploymentRepository;
 use PDO;
 
@@ -49,14 +50,15 @@ class SqLiteDeploymentRepository implements DeploymentRepository
     /**
      * @param int $id
      * @return Deployment|null
+     * @throws DeploymentNotFoundException
      */
     public function findDeploymentOfId(int $id): ?Deployment
     {
-        $query = $this->connection->prepare("SELECT * FROM deployments WHERE id=?", [$id]);
-        $query->execute();
+        $query = $this->connection->prepare("SELECT * FROM deployments WHERE id=:id");
+        $query->execute(['id' => $id]);
         $result = $query->fetch(PDO::FETCH_ASSOC);
         if (!$result) {
-            return null;
+            throw new DeploymentNotFoundException("Deployment of {$id} not found");
         }
         return $this->getDeploymentResult($result);
     }
