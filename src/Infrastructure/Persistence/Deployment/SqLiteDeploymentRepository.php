@@ -86,4 +86,12 @@ class SqLiteDeploymentRepository implements DeploymentRepository
         $query->execute();
         return $query->fetchAll();
     }
+
+    public function findApplications(): array
+    {
+        $query = $this->connection
+            ->prepare("SELECT DISTINCT application FROM deployments ORDER BY deployments.application");
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_COLUMN, 0);
+    }
 }

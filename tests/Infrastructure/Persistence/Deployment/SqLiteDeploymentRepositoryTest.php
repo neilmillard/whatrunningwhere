@@ -122,4 +122,31 @@ class SqLiteDeploymentRepositoryTest extends TestCase
         $result = $deploymentRepository->getDeploymentResult($deployment->jsonSerialize());
         assertEquals($deployment->jsonSerialize(), $result->jsonSerialize());
     }
+
+    public function testFindApplications()
+    {
+        //Given
+        $deployment = new Deployment(1, 'bill.gates', 'Frontend', '1.0.0', 'prod', 2);
+        $pdoStatementProphecy = $this->prophesize(\PDOStatement::class);
+        $pdoStatementProphecy
+            ->execute(Argument::any())
+            ->willReturn(true)
+            ->shouldBeCalledOnce();
+        $pdoStatementProphecy
+            ->fetchAll(PDO::FETCH_COLUMN, 0)
+            ->willReturn([$deployment->getApplication()])
+            ->shouldBeCalledOnce();
+
+        $pdoStatementObject = $pdoStatementProphecy->reveal();
+
+        $databaseProphecy = $this->prophesize(PDO::class);
+        $databaseProphecy
+            ->prepare(Argument::any())
+            ->willReturn($pdoStatementObject)
+            ->shouldBeCalledOnce();
+        //When
+        $deploymentRepository = new SqLiteDeploymentRepository($databaseProphecy->reveal());
+        $result = $deploymentRepository->findApplications();
+        assertEquals($deployment->getApplication(), $result[0]);
+    }
 }

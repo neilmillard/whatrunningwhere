@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Application\Actions\Application\ListApplicationAction;
 use App\Application\Actions\Deployment\CreateDeploymentAction;
 use App\Application\Actions\Deployment\DisplayDeploymentFormAction;
 use App\Application\Actions\Deployment\ListDeploymentAction;
@@ -27,6 +28,10 @@ return function (App $app) {
         $group->get('', ListDeploymentAction::class);
         $group->get('/new', DisplayDeploymentFormAction::class);
         $group->get('/{id}', ViewDeploymentAction::class);
+    });
+
+    $app->group('/applications', function ($group) {
+        $group->get('', ListApplicationAction::class);
     });
 
     $app->group('/users', function (Group $group) {

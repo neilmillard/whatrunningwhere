@@ -27,4 +27,6 @@ interface DeploymentRepository
      * @return Deployment
      */
     public function create(Deployment $deployment): Deployment;
+
+    public function findApplications(): array;
 }
