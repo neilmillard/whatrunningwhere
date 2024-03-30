@@ -23,7 +23,7 @@ return function (App $app) {
 
     $app->get('/', HomeAction::class);
 
-    $app->group('/deployments', function( Group $group) {
+    $app->group('/deployments', function (Group $group) {
         $group->post('', CreateDeploymentAction::class);
         $group->get('', ListDeploymentAction::class);
         $group->get('/new', DisplayDeploymentFormAction::class);
