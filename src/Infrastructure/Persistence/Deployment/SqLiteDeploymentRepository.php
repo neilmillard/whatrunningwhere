@@ -55,7 +55,7 @@ class SqLiteDeploymentRepository implements DeploymentRepository
         $query = $this->connection->prepare("SELECT * FROM deployments WHERE id=?", [$id]);
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);
-        if ($result) {
+        if (!$result) {
             return null;
         }
         return $this->getDeploymentResult($result);

@@ -11,6 +11,7 @@ To run the application in development, you can run these commands
 
 ```bash
 cd whatrunningwhere
+touch db.sqlite
 composer start
 ```
 
