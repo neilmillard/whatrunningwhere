@@ -4,7 +4,6 @@ namespace Tests\Infrastructure\Persistence\Deployment;
 
 use App\Domain\Deployment\Deployment;
 use App\Infrastructure\Persistence\Deployment\SqLiteDeploymentRepository;
-use DI\Container;
 use PDO;
 use Prophecy\Argument;
 use Tests\TestCase;
