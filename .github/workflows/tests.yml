@@ -39,3 +39,6 @@ jobs:
 
       - name: Tests
         run: vendor/bin/phpunit --coverage-clover clover.xml
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
