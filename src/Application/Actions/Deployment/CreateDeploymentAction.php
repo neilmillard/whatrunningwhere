@@ -9,6 +9,29 @@ class CreateDeploymentAction extends DeploymentAction
 {
     /**
      * @inheritDoc
+     * @OA\Post(
+     *     path="/deployments",
+     *     tags={"deployment"},
+     *     operationId="createDeployment",
+     *     description="Creates a deployment entry",
+     *     @OA\RequestBody(
+     *         description="Deployment object to be created",
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/Deployment"),
+     *         @OA\MediaType(
+     *             mediaType="application\x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/Deployment")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *          response=405,
+     *          description="Invalid input",
+     *      ),
+     *     @OA\Response(
+     *          response=201,
+     *          description="Created Okay",
+     *      ),
+     * )
      */
     protected function action(): Response
     {

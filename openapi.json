@@ -1,0 +1,138 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "What Running Where",
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8008"
+        }
+    ],
+    "paths": {
+        "/deployments": {
+            "get": {
+                "tags": [
+                    "deployment"
+                ],
+                "operationId": "listDeployments",
+                "responses": {
+                    "200": {
+                        "description": "A list of all deployment event records",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Deployment"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "deployment"
+                ],
+                "description": "Creates a deployment entry",
+                "operationId": "createDeployment",
+                "requestBody": {
+                    "description": "Deployment object to be created",
+                    "required": true,
+                    "content": {
+                        "application\\x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Deployment"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Deployment"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    },
+                    "201": {
+                        "description": "Created Okay"
+                    }
+                }
+            }
+        },
+        "/deployments/{id}": {
+            "get": {
+                "tags": [
+                    "deployment"
+                ],
+                "operationId": "getDeployment",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Deployment id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A single deployment event record",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Deployment"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Deployment": {
+                "title": "Deployment",
+                "description": "A single Deployment Event Model",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "readOnly": true,
+                        "example": 1
+                    },
+                    "who": {
+                        "type": "string",
+                        "example": "bill.gates"
+                    },
+                    "application": {
+                        "type": "string",
+                        "example": "frontend"
+                    },
+                    "version": {
+                        "type": "string",
+                        "example": "1.2.3"
+                    },
+                    "environment": {
+                        "type": "string",
+                        "example": "production"
+                    },
+                    "time": {
+                        "type": "integer",
+                        "format": "int64",
+                        "readOnly": true,
+                        "example": 1711992834
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

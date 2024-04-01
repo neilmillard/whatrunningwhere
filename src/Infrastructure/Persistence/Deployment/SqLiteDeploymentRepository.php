@@ -35,6 +35,9 @@ class SqLiteDeploymentRepository implements DeploymentRepository
         return $deployment;
     }
 
+    /**
+     * @return array|Deployment[]
+     */
     public function findAll(): array
     {
         $deployments = [];
@@ -80,6 +83,10 @@ class SqLiteDeploymentRepository implements DeploymentRepository
         );
     }
 
+    /**
+     * @param string $application
+     * @return array|Deployment[]
+     */
     public function findDeploymentWithApplication(string $application): array
     {
         $deployments = [];
@@ -94,7 +101,7 @@ class SqLiteDeploymentRepository implements DeploymentRepository
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function findApplications(): array
     {

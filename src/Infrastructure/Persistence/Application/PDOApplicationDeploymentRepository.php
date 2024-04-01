@@ -83,6 +83,8 @@ class PDOApplicationDeploymentRepository implements ApplicationDeploymentReposit
     }
 
     /**
+     * @param  string $applicationId
+     * @return ApplicationDeployment[]
      * @throws ApplicationNotFoundException
      */
     public function findApplicationDeployments(string $applicationId): array

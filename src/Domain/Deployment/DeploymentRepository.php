@@ -28,5 +28,8 @@ interface DeploymentRepository
      */
     public function create(Deployment $deployment): Deployment;
 
+    /**
+     * @return string[]
+     */
     public function findApplications(): array;
 }

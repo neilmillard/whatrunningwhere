@@ -4,18 +4,48 @@ namespace App\Domain\Deployment;
 
 use JsonSerializable;
 
+/**
+ * @OA\Schema (
+ *     title="Deployment",
+ *     description="A single Deployment Event Model"
+ * )
+ */
 class Deployment implements JsonSerializable
 {
+    /**
+     * @var int|null
+     * @OA\Property (type="integer", format="int64", readOnly=true, example=1)
+     */
     private ?int $id;
 
+    /**
+     * @var string
+     * @OA\Property (type="string", example="bill.gates")
+     */
     private string $who;
 
+    /**
+     * @var string
+     * @OA\Property (type="string", example="frontend")
+     */
     private string $application;
 
+    /**
+     * @var string
+     * @OA\Property (type="string", example="1.2.3")
+     */
     private string $version;
 
+    /**
+     * @var string
+     * @OA\Property (type="string", example="production")
+     */
     private string $environment;
 
+    /**
+     * @var int
+     * @OA\Property (type="integer", format="int64", readOnly=true, example=1711992834)
+     */
     private int $time;
 
     public function __construct(
