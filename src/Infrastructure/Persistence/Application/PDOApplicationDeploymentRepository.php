@@ -81,4 +81,23 @@ class PDOApplicationDeploymentRepository implements ApplicationDeploymentReposit
             $result['deployment_id']
         );
     }
+
+    /**
+     * @throws ApplicationNotFoundException
+     */
+    public function findApplicationDeployments(string $applicationId): array
+    {
+        $query = $this->connection
+            ->prepare("SELECT * FROM applications WHERE name=:name");
+        $query->execute(['name' => $applicationId]);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!$results) {
+            throw new ApplicationNotFoundException("Application $applicationId not found");
+        }
+        $applicationDeployments = [];
+        foreach ($results as $result) {
+            $applicationDeployments[] = $this->getApplicationDeploymentFromResult($result);
+        }
+        return $applicationDeployments;
+    }
 }

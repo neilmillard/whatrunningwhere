@@ -25,4 +25,10 @@ interface ApplicationDeploymentRepository
      * @return ApplicationDeployment
      */
     public function findApplicationDeployment(string $name, string $environment): ApplicationDeployment;
+
+    /**
+     * @param string $applicationId
+     * @return ApplicationDeployment[]
+     */
+    public function findApplicationDeployments(string $applicationId): array;
 }

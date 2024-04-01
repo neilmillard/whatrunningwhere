@@ -14,7 +14,11 @@ class ViewApplicationAction extends ApplicationAction
     {
         $applicationId = $this->resolveArg('application');
         $this->logger->info("Application $applicationId was viewed.");
-        $application = ApplicationFactory::getApplication($applicationId, $this->deploymentRepository);
+        $application = ApplicationFactory::getApplication(
+            $applicationId,
+            $this->applicationDeploymentRepository,
+            $this->deploymentRepository
+        );
         return $this->respondWithData($application);
     }
 }

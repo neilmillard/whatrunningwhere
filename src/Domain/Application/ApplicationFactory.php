@@ -8,18 +8,21 @@ class ApplicationFactory
 {
     /**
      * @param string $applicationId
+     * @param ApplicationDeploymentRepository $applicationDeploymentRepository
      * @param DeploymentRepository $deploymentRepository
      * @return Application
      */
     public static function getApplication(
         string $applicationId,
+        ApplicationDeploymentRepository $applicationDeploymentRepository,
         DeploymentRepository $deploymentRepository
     ): Application {
         $application = new Application($applicationId);
-        // This will become painfully slow as the number of deployments increases
-        // needs to be replaced with a dedicated table instead
-        $deployments = $deploymentRepository->findDeploymentWithApplication($applicationId);
-        foreach ($deployments as $deployment) {
+        $applicationDeployments = $applicationDeploymentRepository
+            ->findApplicationDeployments($applicationId);
+
+        foreach ($applicationDeployments as $appDeployment) {
+            $deployment = $deploymentRepository->findDeploymentOfId($appDeployment->getDeployment());
             $application->addDeployment($deployment);
         }
 
