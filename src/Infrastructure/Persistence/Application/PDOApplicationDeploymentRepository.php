@@ -17,17 +17,42 @@ class PDOApplicationDeploymentRepository implements ApplicationDeploymentReposit
     /**
      * @inheritDoc
      */
-    public function create(ApplicationDeployment $applicationDeployment): ApplicationDeployment
+    public function create(ApplicationDeployment $applicationDeployment): ?ApplicationDeployment
     {
-        // TODO: Implement create() method.
+        $data = [
+            'name' => $applicationDeployment->getName(),
+            'environment' => $applicationDeployment->getEnvironment(),
+            'deployment_id' => $applicationDeployment->getDeployment(),
+        ];
+        $sql = "INSERT INTO applications (name, environment, deployment_id) "
+            . "VALUES (:name, :environment, :deployment_id)";
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        if ($query->rowCount() == 0) {
+            return null;
+
+        }
+        return $applicationDeployment;
     }
 
     /**
      * @inheritDoc
      */
-    public function update(ApplicationDeployment $applicationDeployment): ApplicationDeployment
+    public function updateOrCreate(ApplicationDeployment $applicationDeployment): ApplicationDeployment
     {
-        // TODO: Implement update() method.
+        $data = [
+            'name' => $applicationDeployment->getName(),
+            'environment' => $applicationDeployment->getEnvironment(),
+            'deployment_id' => $applicationDeployment->getDeployment(),
+        ];
+        $sql = "UPDATE applications SET deployment_id=:deployment_id "
+            . "WHERE name=:name AND environment=:environment";
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        if ($query->rowCount() == 0) {
+            return $this->create($applicationDeployment);
+        }
+        return $applicationDeployment;
     }
 
     /**

@@ -8,15 +8,15 @@ interface ApplicationDeploymentRepository
 {
     /**
      * @param ApplicationDeployment $applicationDeployment
-     * @return ApplicationDeployment
+     * @return ?ApplicationDeployment
      */
-    public function create(ApplicationDeployment $applicationDeployment): ApplicationDeployment;
+    public function create(ApplicationDeployment $applicationDeployment): ?ApplicationDeployment;
 
     /**
      * @param ApplicationDeployment $applicationDeployment
      * @return ApplicationDeployment
      */
-    public function update(ApplicationDeployment $applicationDeployment): ApplicationDeployment;
+    public function updateOrCreate(ApplicationDeployment $applicationDeployment): ApplicationDeployment;
 
     /**
      * @param string $name
