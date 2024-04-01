@@ -30,7 +30,6 @@ class PDOApplicationDeploymentRepository implements ApplicationDeploymentReposit
         $query->execute($data);
         if ($query->rowCount() == 0) {
             return null;
-
         }
         return $applicationDeployment;
     }
