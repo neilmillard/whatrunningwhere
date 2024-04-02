@@ -9,6 +9,25 @@ class ViewApplicationAction extends ApplicationAction
 {
     /**
      * @inheritDoc
+     * @OA\Get (
+     *      tags={"applicationDeployment"},
+     *       path="/applications/{name}",
+     *      operationId="getApplication",
+     *      @OA\Parameter (
+     *          name="name",
+     *          in="path",
+     *          required=true,
+     *          description="Application name",
+     *          @OA\Schema (
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="A single application record",
+     *          @OA\JsonContent(ref="#/components/schemas/Application")
+     *      )
+     *  )
      */
     protected function action(): Response
     {

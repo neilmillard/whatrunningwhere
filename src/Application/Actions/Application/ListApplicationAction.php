@@ -8,6 +8,19 @@ class ListApplicationAction extends ApplicationAction
 {
     /**
      * @inheritDoc
+     * @OA\Get (
+     *      tags={"applicationDeployment"},
+     *      path="/applications",
+     *      operationId="listApplicationDeployments",
+     *      @OA\Response(
+     *          response=200,
+     *          description="A list of all applicationDeployment records",
+     *          @OA\JsonContent(
+     *              type="array",
+     *              @OA\Items(ref="#/components/schemas/ApplicationDeployment")
+     *          )
+     *      )
+     *  )
      */
     protected function action(): Response
     {

@@ -10,6 +10,60 @@
         }
     ],
     "paths": {
+        "/applications": {
+            "get": {
+                "tags": [
+                    "applicationDeployment"
+                ],
+                "operationId": "listApplicationDeployments",
+                "responses": {
+                    "200": {
+                        "description": "A list of all applicationDeployment records",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ApplicationDeployment"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/applications/{name}": {
+            "get": {
+                "tags": [
+                    "applicationDeployment"
+                ],
+                "operationId": "getApplication",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Application name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A single application record",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Application"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/deployments": {
             "get": {
                 "tags": [
@@ -98,6 +152,57 @@
     },
     "components": {
         "schemas": {
+            "Application": {
+                "title": "Application",
+                "description": "A single Application Model",
+                "properties": {
+                    "application": {
+                        "type": "string",
+                        "example": "frontend"
+                    },
+                    "deployments": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "properties": {
+                                    "deployments": {
+                                        "properties": {
+                                            "deployments": {
+                                                "$ref": "#/components/schemas/Deployment"
+                                            }
+                                        },
+                                        "type": "string",
+                                        "example": "development"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "ApplicationDeployment": {
+                "title": "ApplicationDeployment",
+                "description": "A single ApplicationDeployment Event Model",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "frontend"
+                    },
+                    "environment": {
+                        "type": "string",
+                        "example": "development"
+                    },
+                    "deployment_id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
             "Deployment": {
                 "title": "Deployment",
                 "description": "A single Deployment Event Model",
