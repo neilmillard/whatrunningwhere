@@ -2,6 +2,7 @@
 
 namespace App\Domain\Application;
 
+use App\Domain\Deployment\DeploymentNotFoundException;
 use App\Domain\Deployment\DeploymentRepository;
 
 class ApplicationFactory
@@ -11,6 +12,7 @@ class ApplicationFactory
      * @param ApplicationDeploymentRepository $applicationDeploymentRepository
      * @param DeploymentRepository $deploymentRepository
      * @return Application
+     * @throws DeploymentNotFoundException
      */
     public static function getApplication(
         string $applicationId,

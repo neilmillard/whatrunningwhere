@@ -17,50 +17,11 @@ class PDOApplicationDeploymentRepository implements ApplicationDeploymentReposit
     /**
      * @inheritDoc
      */
-    public function create(ApplicationDeployment $applicationDeployment): ?ApplicationDeployment
-    {
-        $data = [
-            'name' => $applicationDeployment->getName(),
-            'environment' => $applicationDeployment->getEnvironment(),
-            'deployment_id' => $applicationDeployment->getDeployment(),
-        ];
-        $sql = "INSERT INTO applications (name, environment, deployment_id) "
-            . "VALUES (:name, :environment, :deployment_id)";
-        $query = $this->connection->prepare($sql);
-        $query->execute($data);
-        if ($query->rowCount() == 0) {
-            return null;
-        }
-        return $applicationDeployment;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function updateOrCreate(ApplicationDeployment $applicationDeployment): ApplicationDeployment
-    {
-        $data = [
-            'name' => $applicationDeployment->getName(),
-            'environment' => $applicationDeployment->getEnvironment(),
-            'deployment_id' => $applicationDeployment->getDeployment(),
-        ];
-        $sql = "UPDATE applications SET deployment_id=:deployment_id "
-            . "WHERE name=:name AND environment=:environment";
-        $query = $this->connection->prepare($sql);
-        $query->execute($data);
-        if ($query->rowCount() == 0) {
-            return $this->create($applicationDeployment);
-        }
-        return $applicationDeployment;
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function findApplicationDeployment(string $name, string $environment): ApplicationDeployment
     {
         $query = $this->connection
-            ->prepare("SELECT * FROM applications WHERE name=:name AND environment=:environment");
+            ->prepare("SELECT * FROM deployments 
+         WHERE application=:name AND environment=:environment ORDER BY time LIMIT 1");
         $query->execute(['name' => $name, 'environment' => $environment]);
         $result = $query->fetch(PDO::FETCH_ASSOC);
         if (!$result) {
@@ -76,9 +37,9 @@ class PDOApplicationDeploymentRepository implements ApplicationDeploymentReposit
     private function getApplicationDeploymentFromResult(mixed $result): ApplicationDeployment
     {
         return new ApplicationDeployment(
-            $result['name'],
+            $result['application'],
             $result['environment'],
-            $result['deployment_id']
+            $result['id']
         );
     }
 
@@ -89,8 +50,23 @@ class PDOApplicationDeploymentRepository implements ApplicationDeploymentReposit
      */
     public function findApplicationDeployments(string $applicationId): array
     {
+        // The sub-query selects rows filtered by application name, and sorting the environments.
+        // these rows get a row_num
+        //
+        // The outer query selects from the sub-query but only includes rows where row_num is 1. Ie the latest entry
+        // for each environment
         $query = $this->connection
-            ->prepare("SELECT * FROM applications WHERE name=:name");
+            ->prepare(
+                "SELECT application, environment, time, id
+      FROM (SELECT application,
+                   environment,
+                   time,
+                   id,
+                   ROW_NUMBER() OVER (PARTITION BY application, environment ORDER BY time DESC) AS row_num
+            FROM deployments
+            WHERE application = :name) AS subquery
+      WHERE row_num = 1"
+            );
         $query->execute(['name' => $applicationId]);
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
         if (!$results) {
