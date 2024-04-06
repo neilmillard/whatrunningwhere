@@ -70,6 +70,26 @@
                     "deployment"
                 ],
                 "operationId": "listDeployments",
+                "parameters": [
+                    {
+                        "name": "from",
+                        "in": "query",
+                        "description": "Timestamp of earliest entry defaults to -7 days",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    },
+                    {
+                        "name": "to",
+                        "in": "query",
+                        "description": "Timestamp of latest entry, Default now",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "A list of all deployment event records",

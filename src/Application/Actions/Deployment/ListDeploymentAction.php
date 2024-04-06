@@ -11,6 +11,20 @@ class ListDeploymentAction extends DeploymentAction
      * @OA\Get (
      *      tags={"deployment"},
      *      path="/deployments",
+     *      @OA\Parameter(
+     *          name="from",
+     *          in="query",
+     *          description="Timestamp of earliest entry defaults to -7 days",
+     *          required=false,
+     *          @OA\Schema(type="int")
+     *      ),
+     *      @OA\Parameter(
+     *           name="to",
+     *           in="query",
+     *           description="Timestamp of latest entry, Default now",
+     *           required=false,
+     *           @OA\Schema(type="int")
+     *      ),
      *      operationId="listDeployments",
      *      @OA\Response(
      *          response=200,
@@ -24,7 +38,10 @@ class ListDeploymentAction extends DeploymentAction
      */
     protected function action(): Response
     {
-        $deployments = $this->deploymentRepository->findAll();
+        $params = $this->request->getQueryParams();
+        $dateFrom = $params['from'] ?? strtotime('-7 days');
+        $dateTo = $params['to'] ?? time();
+        $deployments = $this->deploymentRepository->findAll($dateFrom, $dateTo);
         $this->logger->info("Deployments list was viewed.");
         return $this->respondWithData($deployments);
     }

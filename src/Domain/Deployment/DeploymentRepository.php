@@ -5,9 +5,11 @@ namespace App\Domain\Deployment;
 interface DeploymentRepository
 {
     /**
+     * @param int $timeStampFrom
+     * @param int $timeStampTo
      * @return Deployment[]
      */
-    public function findAll(): array;
+    public function findAll(int $timeStampFrom, int $timeStampTo): array;
 
     /**
      * @param int $id

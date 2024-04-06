@@ -50,11 +50,13 @@ class SqLiteDeploymentRepositoryTest extends TestCase
     public function testFindAll()
     {
         //Given
-        $deployment = new Deployment(1, 'bill.gates', 'Frontend', '1.0.0', 'prod', null);
+        $deployment = new Deployment(time() - 10, 'bill.gates', 'Frontend', '1.0.0', 'prod', null);
+        $fromDate = strtotime('-7 days');
+        $toDate = time();
 
         $pdoStatementProphecy = $this->prophesize(\PDOStatement::class);
         $pdoStatementProphecy
-            ->execute(Argument::any())
+            ->execute(['timestamp_from' => $fromDate,'timestamp_to' => $toDate])
             ->willReturn(true)
             ->shouldBeCalledOnce();
         $pdoStatementProphecy
@@ -73,7 +75,7 @@ class SqLiteDeploymentRepositoryTest extends TestCase
         //When
         $deploymentRepository = new SqLiteDeploymentRepository($databaseProphecy->reveal());
 
-        $result = $deploymentRepository->findAll();
+        $result = $deploymentRepository->findAll($fromDate, $toDate);
         //Then
         assertEquals($deployment->jsonSerialize(), $result[0]->jsonSerialize());
     }

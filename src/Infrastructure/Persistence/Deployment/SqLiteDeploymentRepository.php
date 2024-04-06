@@ -36,13 +36,19 @@ class SqLiteDeploymentRepository implements DeploymentRepository
     }
 
     /**
+     * @param int $timeStampFrom
+     * @param int $timeStampTo
      * @return array|Deployment[]
      */
-    public function findAll(): array
+    public function findAll(int $timeStampFrom, int $timeStampTo): array
     {
         $deployments = [];
-        $query = $this->connection->prepare("SELECT * FROM deployments");
-        $query->execute();
+        $query = $this->connection->prepare("SELECT * FROM deployments WHERE " .
+        "time BETWEEN :timestamp_from AND :timestamp_to LIMIT 100");
+        $query->execute([
+            'timestamp_from' => $timeStampFrom,
+            'timestamp_to' => $timeStampTo
+        ]);
         $data = $query->fetchall(PDO::FETCH_ASSOC);
         foreach ($data as $n) {
             $deployments[] = $this->getDeploymentResult($n);
