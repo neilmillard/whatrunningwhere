@@ -11,21 +11,21 @@ class ListApplicationAction extends ApplicationAction
      * @OA\Get (
      *      tags={"applicationDeployment"},
      *      path="/applications",
-     *      operationId="listApplicationDeployments",
+     *      operationId="listApplications",
      *      @OA\Response(
      *          response=200,
-     *          description="A list of all applicationDeployment records",
+     *          description="A list of all application entries",
      *          @OA\JsonContent(
      *              type="array",
-     *              @OA\Items(ref="#/components/schemas/ApplicationDeployment")
+     *              @OA\Items(type="string")
      *          )
      *      )
      *  )
      */
     protected function action(): Response
     {
-        $deployments = $this->deploymentRepository->findApplications();
+        $applications = $this->deploymentRepository->findApplications();
         $this->logger->info("Applications list was viewed.");
-        return $this->respondWithData($deployments);
+        return $this->respondWithData($applications);
     }
 }

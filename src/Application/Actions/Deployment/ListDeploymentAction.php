@@ -29,9 +29,28 @@ class ListDeploymentAction extends DeploymentAction
      *      @OA\Response(
      *          response=200,
      *          description="A list of all deployment event records",
-     *          @OA\JsonContent(
+     *          @OA\Property(
+     *              title="data",
      *              type="array",
-     *              @OA\Items(ref="#/components/schemas/Deployment")
+     *              @OA\Property(
+     *                  title="from",
+     *                  type="int",
+     *                  example="1711810636"
+     *              ),
+     *              @OA\Property(
+     *                  title="to",
+     *                  type="int",
+     *                  example="1711810636"
+     *              ),
+     *              @OA\Property(
+     *                  title="deployments",
+     *                  type="array",
+     *                  @OA\Property(
+     *                      type="array",
+     *                      title="deployments",
+     *                      @OA\Items(ref="#/components/schemas/Deployment")
+     *                  )
+     *              )
      *          )
      *      )
      *  )
@@ -43,6 +62,9 @@ class ListDeploymentAction extends DeploymentAction
         $dateTo = $params['to'] ?? time();
         $deployments = $this->deploymentRepository->findAll($dateFrom, $dateTo);
         $this->logger->info("Deployments list was viewed.");
-        return $this->respondWithData($deployments);
+        $data = ['from' => $dateFrom,
+                 'to' => $dateTo,
+                'deployments' => $deployments];
+        return $this->respondWithData($data);
     }
 }

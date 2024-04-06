@@ -15,16 +15,16 @@
                 "tags": [
                     "applicationDeployment"
                 ],
-                "operationId": "listApplicationDeployments",
+                "operationId": "listApplications",
                 "responses": {
                     "200": {
-                        "description": "A list of all applicationDeployment records",
+                        "description": "A list of all application entries",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/ApplicationDeployment"
+                                        "type": "string"
                                     }
                                 }
                             }
@@ -92,17 +92,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "A list of all deployment event records",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Deployment"
-                                    }
-                                }
-                            }
-                        }
+                        "description": "A list of all deployment event records"
                     }
                 }
             },

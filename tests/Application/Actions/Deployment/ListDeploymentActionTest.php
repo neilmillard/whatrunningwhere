@@ -39,7 +39,14 @@ class ListDeploymentActionTest extends TestCase
         $payload = (string)$response->getBody();
 
         //Then
-        $expectedPayload = new ActionPayload(200, [$deployment]);
+        $expectedPayload = new ActionPayload(
+            200,
+            [
+                'from' => "$before",
+                'to' => "$now",
+                'deployments' => [$deployment]
+            ]
+        );
         $serializedPayload = json_encode($expectedPayload, JSON_PRETTY_PRINT);
         $this->assertEquals($serializedPayload, $payload);
     }
