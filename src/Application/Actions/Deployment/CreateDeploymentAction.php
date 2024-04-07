@@ -37,7 +37,7 @@ class CreateDeploymentAction extends DeploymentAction
     {
         // Validate and sanitize the input data
         // Get all POST parameters
-        $data = (array)$this->request->getParsedBody();
+        $data = (array)$this->getFormData();
         $time = time();
         $application = isset($data['application']) ? trim($data['application']) : '';
         $version = isset($data['version']) ? trim($data['version']) : '';

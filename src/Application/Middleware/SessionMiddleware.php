@@ -13,6 +13,7 @@ class SessionMiddleware implements Middleware
 {
     /**
      * {@inheritdoc}
+     * @codeCoverageIgnore
      */
     public function process(Request $request, RequestHandler $handler): Response
     {

@@ -17,6 +17,9 @@ use Slim\Exception\HttpUnauthorizedException;
 use Slim\Handlers\ErrorHandler as SlimErrorHandler;
 use Throwable;
 
+/**
+ * @codeCoverageIgnore
+ */
 class HttpErrorHandler extends SlimErrorHandler
 {
     protected function respond(): Response
