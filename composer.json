@@ -30,7 +30,7 @@
     "zircote/swagger-php": "^4.8"
   },
   "require-dev": {
-    "jangregor/phpstan-prophecy": "^1.0.0",
+    "jangregor/phpstan-prophecy": "^1.0.2",
     "phpspec/prophecy-phpunit": "^v2.2.0",
     "phpstan/extension-installer": "^1.3.1",
     "phpstan/phpstan": "^1.10",
