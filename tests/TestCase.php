@@ -8,6 +8,7 @@ use DI\ContainerBuilder;
 use Exception;
 use PHPUnit\Framework\TestCase as PHPUnit_TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 use Slim\Factory\AppFactory;
@@ -15,6 +16,7 @@ use Slim\Psr7\Factory\StreamFactory;
 use Slim\Psr7\Headers;
 use Slim\Psr7\Request as SlimRequest;
 use Slim\Psr7\Uri;
+use Tests\Providers\PSR7ObjectProvider;
 
 class TestCase extends PHPUnit_TestCase
 {
@@ -87,5 +89,16 @@ class TestCase extends PHPUnit_TestCase
         }
 
         return new SlimRequest($method, $uri, $h, $cookies, $serverParams, $stream);
+    }
+
+    /**
+     * @param int    $statusCode
+     * @param string $reasonPhrase
+     * @return ResponseInterface
+     */
+    protected function createResponse(int $statusCode = 200, string $reasonPhrase = ''): ResponseInterface
+    {
+        $psr7ObjectProvider = new PSR7ObjectProvider();
+        return $psr7ObjectProvider->createResponse($statusCode, $reasonPhrase);
     }
 }

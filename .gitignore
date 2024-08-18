@@ -56,3 +56,4 @@
 /.idea/
 /.idea/*
 
+/db.sqlite
