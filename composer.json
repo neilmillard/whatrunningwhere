@@ -21,7 +21,7 @@
     "ext-json": "*",
     "ext-pdo": "*",
     "doctrine/annotations": "^2.0",
-    "monolog/monolog": "^3.5.0",
+    "monolog/monolog": "^3.7.0",
     "php-di/php-di": "^7.0.6",
     "robmorgan/phinx": "^0.16.2",
     "slim/psr7": "^1.6",
