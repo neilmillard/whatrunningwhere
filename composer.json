@@ -34,7 +34,7 @@
     "jangregor/phpstan-prophecy": "^1.0.2",
     "nyholm/psr7": "^1.8",
     "phpspec/prophecy-phpunit": "^v2.2.0",
-    "phpstan/extension-installer": "^1.4.1",
+    "phpstan/extension-installer": "^1.4.2",
     "phpstan/phpstan": "^1.10",
     "phpunit/phpunit": "^10.5.17",
     "phpunit/php-code-coverage": "^10.1.14",
