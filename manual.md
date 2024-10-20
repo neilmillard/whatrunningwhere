@@ -61,7 +61,7 @@ environment for each deployment that has been entered.
 
 To enter a new deployment, follow these steps:
 
-1. Open your web browser and visit the PHP Deployment Application.
+1. Open your web browser and visit the PHP Deployment Application. <a href="http://localhost:8000/deployments/new">New Deployment</a>
 
 2. Click on the "Enter a New Deployment" link or navigate to the deployment form page.
 
@@ -73,7 +73,7 @@ To enter a new deployment, follow these steps:
 
 To view the current deployed versions, follow these steps:
 
-1. Open your web browser and visit the PHP Deployment Application.
+1. Open your web browser and visit the PHP Deployment Application.  <a href="http://localhost:8000/deployments">List Deployment</a>
 
 2. Click on the "View Current Deployed Versions" link or navigate to the deployment list page.
 
@@ -96,8 +96,7 @@ following troubleshooting steps:
 
 If you need further assistance or have any questions, please contact our support team:
 
-- Email: support@chatdev.com
-- Phone: +1-123-456-7890
-- Website: https://www.chatdev.com/support
+- Email: team@millardtechnicalservices.co.uk
+- Website: https://www.millardtechnicalservices.co.uk
 
-Thank you for using the PHP Deployment Application! We hope it helps you effectively manage your deployment information.
+Thank you for using the PHP What's running where! We hope it helps you effectively manage your deployment information.
