@@ -30,7 +30,7 @@
     "zircote/swagger-php": "^4.11"
   },
   "require-dev": {
-    "adriansuter/php-autoload-override": "^1.4",
+    "adriansuter/php-autoload-override": "^1.5",
     "jangregor/phpstan-prophecy": "^1.0.2",
     "nyholm/psr7": "^1.8",
     "phpspec/prophecy-phpunit": "^v2.2.0",
