@@ -22,7 +22,7 @@
     "ext-pdo": "*",
     "doctrine/annotations": "^2.0",
     "monolog/monolog": "^3.9.0",
-    "php-di/php-di": "^7.0.9",
+    "php-di/php-di": "^7.0.10",
     "robmorgan/phinx": "^0.16.7",
     "slim/psr7": "^1.6",
     "slim/slim": "^4.10",
