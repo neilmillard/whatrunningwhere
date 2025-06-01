@@ -23,8 +23,8 @@
     "doctrine/annotations": "^2.0",
     "monolog/monolog": "^3.9.0",
     "php-di/php-di": "^7.0.10",
-    "robmorgan/phinx": "^0.16.7",
-    "slim/psr7": "^1.7",
+    "robmorgan/phinx": "^0.16.9",
+    "slim/psr7": "^1.6",
     "slim/slim": "^4.10",
     "slim/twig-view": "^3.4.1",
     "zircote/swagger-php": "^5.1"
