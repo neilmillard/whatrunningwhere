@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2396524dfe9e8fb4841ed44a50bf252a",
+    "content-hash": "4c77fce8184c4225fe797d9e61992e3e",
     "packages": [
         {
             "name": "cakephp/chronos",
@@ -839,30 +839,36 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.19.5",
+            "version": "v5.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "51bd93cc741b7fc3d63d20b6bdcd99fdaa359837"
+                "reference": "9e33da9553fe7786f0962b35f4e4ecf01be89def"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/51bd93cc741b7fc3d63d20b6bdcd99fdaa359837",
-                "reference": "51bd93cc741b7fc3d63d20b6bdcd99fdaa359837",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/9e33da9553fe7786f0962b35f4e4ecf01be89def",
+                "reference": "9e33da9553fe7786f0962b35f4e4ecf01be89def",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
                 "ext-tokenizer": "*",
-                "php": ">=7.1"
+                "php": ">=7.4"
             },
             "require-dev": {
                 "ircmaxell/php-yacc": "^0.0.7",
-                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0"
+                "phpunit/phpunit": "^9.0"
             },
             "bin": [
                 "bin/php-parse"
             ],
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "PhpParser\\": "lib/PhpParser"
@@ -884,9 +890,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v4.19.5"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.9.0"
             },
-            "time": "2025-12-06T11:45:25+00:00"
+            "time": "2026-09-13T18:51:52+00:00"
         },
         {
             "name": "php-di/invoker",
@@ -3101,27 +3107,27 @@
     "packages-dev": [
         {
             "name": "adriansuter/php-autoload-override",
-            "version": "1.5",
+            "version": "2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/adriansuter/php-autoload-override.git",
-                "reference": "e9607d6f9f05975cd820c42bae6eddd017c16d8a"
+                "reference": "1adab17fec8228d71ae35d961982731a5a37e0e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/adriansuter/php-autoload-override/zipball/e9607d6f9f05975cd820c42bae6eddd017c16d8a",
-                "reference": "e9607d6f9f05975cd820c42bae6eddd017c16d8a",
+                "url": "https://api.github.com/repos/adriansuter/php-autoload-override/zipball/1adab17fec8228d71ae35d961982731a5a37e0e8",
+                "reference": "1adab17fec8228d71ae35d961982731a5a37e0e8",
                 "shasum": ""
             },
             "require": {
-                "nikic/php-parser": "^4.4",
-                "php": "^7.3 || ^8.0"
+                "nikic/php-parser": "^5",
+                "php": "^8.2"
             },
             "require-dev": {
-                "phpspec/prophecy-phpunit": "^2.0",
-                "phpstan/phpstan": "^1.12",
-                "phpunit/phpunit": "^9.6",
-                "squizlabs/php_codesniffer": "^3.10"
+                "phpspec/prophecy-phpunit": "^2",
+                "phpstan/phpstan": "^2",
+                "phpunit/phpunit": "^11 | ^12 | ^13",
+                "squizlabs/php_codesniffer": "^3.7 | ^4"
             },
             "type": "library",
             "autoload": {
@@ -3148,9 +3154,9 @@
             ],
             "support": {
                 "issues": "https://github.com/adriansuter/php-autoload-override/issues",
-                "source": "https://github.com/adriansuter/php-autoload-override/tree/1.5"
+                "source": "https://github.com/adriansuter/php-autoload-override/tree/2.1"
             },
-            "time": "2024-11-03T11:16:23+00:00"
+            "time": "2026-04-22T09:12:21+00:00"
         },
         {
             "name": "doctrine/deprecations",
